@@ -1,3 +1,5 @@
+$background-color: #2d2c2b;
+
 * {
   margin: 0;
   padding: 0;
@@ -7,12 +9,41 @@
 body {
   width: 100vw;
   height: 100vh;
-  background-color: #2d2c2b;
+  background-color: $background-color;
   overflow: hidden;
 }
 
 .dot {
   position: absolute;
+  top: -200px;
   border-radius: 50%;
   backdrop-filter: blur(4px);
+  border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+  transform: rotate(-45deg);
+  border:1px solid $background-color;
+  box-shadow: 10px -10px 20px;
+
+  &.dot-animation-class {
+    animation: 2s linear infinite drop-animation;
+  }
 }
+
+@keyframes drop-animation {
+  from {
+    top: -80px
+  }
+
+  to {
+    top: 110vh;
+  }
+}
+
+//@keyframes drop-animation {
+//  from {
+//    transform: translateY(-80px) rotate(-45deg);
+//  }
+//
+//  to {
+//    transform: translateY(1100px) rotate(-45deg );
+//  }
+//}
