@@ -1,7 +1,8 @@
 export const config = {
-    velocity: 100,
-    quantity: 100,
-    dotSize: 30,
+    velocity: 5,
+    quantity: 2000,
+    dotSize: 20,
     screenWidth: window.innerWidth,
-    screenHeight: window.innerHeight
+    screenHeight: window.innerHeight,
+    avoidFieldSize: 100
 };

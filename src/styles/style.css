@@ -11,27 +11,4 @@ body {
   overflow: hidden;
 }
 
-.dot {
-  position: absolute;
-  top: -200px;
-  border-radius: 50%;
-  backdrop-filter: blur(4px);
-  border-radius: 80% 0 55% 50%/55% 0 80% 50%;
-  transform: rotate(-45deg);
-  border: 1px solid #2d2c2b;
-  box-shadow: 10px -10px 20px;
-}
-.dot.dot-animation-class {
-  animation: 2s linear infinite drop-animation;
-}
-
-@keyframes drop-animation {
-  from {
-    top: -80px;
-  }
-  to {
-    top: 110vh;
-  }
-}
-
 /*# sourceMappingURL=style.css.map */
