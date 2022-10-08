@@ -14,6 +14,7 @@ export class Point {
       y: Point.initCoordinateByScreenSize(config.screenHeight),
       startX: 0
     }
+    this.coordinate.startX = this.coordinate.x;
     this.color = Point.getColorByCoordinate(this.coordinate.x, config.screenWidth);
     this.refreshPoint();
   }
@@ -46,7 +47,10 @@ export class Point {
     const isPointInAvoidableField = this.isPointInsideCircle(AvoidableField.coordinate, this.coordinate);
     if (isPointInAvoidableField) {
        this.moveOutsideAvoidableField();
+    } else {
+      // this.moveToStartPosition();
     }
+    this.updateColor();
   }
 
   private isPointInsideCircle(circleCoordinates: ICoordinate, pointCoordinate: ICoordinate): boolean {
@@ -54,16 +58,34 @@ export class Point {
   }
 
   private moveOutsideAvoidableField() {
+    const distance = Math.sqrt((this.coordinate.x - AvoidableField.coordinate.x) ** 2 +
+      (this.coordinate.y - AvoidableField.coordinate.y) ** 2);
+    const additionalSpeed = config.avoidFieldSize - distance;
     this.coordinate.x = this.coordinate.x > AvoidableField.coordinate.x ?
-      this.coordinate.x + config.velocity * 2 : this.coordinate.x -= config.velocity * 2;
+      this.coordinate.x + config.velocity + additionalSpeed : this.coordinate.x - (config.velocity + additionalSpeed);
     this.color = Point.getColorByCoordinate(this.coordinate.x, config.screenWidth);
+  }
+
+  private moveToStartPosition() {
+    if (!this.coordinate.startX) { return; }
+    const additionalSpeed = 4;
+    if (this.coordinate.x > this.coordinate.startX) {
+      this.coordinate.x =  this.coordinate.x - additionalSpeed;
+    } else if (this.coordinate.x < this.coordinate.startX) {
+      this.coordinate.x = this.coordinate.x + additionalSpeed;
+    }
   }
 
   public reInitDotProperties(): void {
     this.coordinate.x = Point.initCoordinateByScreenSize(config.screenWidth);
+    this.coordinate.startX = this.coordinate.x;
     this.coordinate.y = 0;
     this.color = Point.getColorByCoordinate(this.coordinate.x, config.screenWidth);
     this.pointElement.style.backgroundColor = this.color;
+  }
+
+  private updateColor() {
+    this.color = Point.getColorByCoordinate(this.coordinate.x, config.screenWidth);
   }
 }
 
@@ -77,8 +99,8 @@ export class AvoidableField {
     ['mousemove', 'touchmove'].forEach(evn => {
       document.addEventListener(evn, (event: any) => {
         AvoidableField.coordinate = {
-          x: event.offsetX,
-          y: event.offsetY
+          x: event.offsetX ?? event.changedTouches[0].pageX,
+          y: event.offsetY ?? event.changedTouches[0].pageY
         }
       })
     })
