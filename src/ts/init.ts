@@ -4,15 +4,15 @@ import { config } from "./animationConfig.js";
 const Points: Point[] = [];
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 export const ctx = canvas.getContext('2d')!;
+const hint = document.getElementById('hint') as HTMLElement;
 
-(function() {
-  initPoints();
-  setCanvasSize();
-  initWindowEventListeners();
-  reDrawCanvas();
-  initAvoidableField();
+(async function() {
+  await initListeners();
+  await setCanvasSize();
+  await initPoints();
+  await reDrawCanvas();
+  await initAvoidableField();
 }());
-
 
 function initPoints() {
   for (let i = 0; i < config.quantity; i++) {
@@ -27,6 +27,11 @@ function initAvoidableField() {
 function setCanvasSize() {
   config.screenWidth = canvas.width = innerWidth;
   config.screenHeight = canvas.height = innerHeight;
+}
+
+function initListeners() {
+  initWindowEventListeners();
+  initHintListener();
 }
 
 function initWindowEventListeners() {
@@ -45,18 +50,19 @@ function dropPoints() {
   });
 }
 
-function drawAvoidField() {
-  if (AvoidableField.coordinate.x === Infinity) { return; }
-
-  ctx.fillStyle = AvoidableField.getAvoidFieldGradient();
-  ctx.beginPath();
-  ctx.arc(AvoidableField.coordinate.x, AvoidableField.coordinate.y, config.avoidFieldSize, 0, 2 * Math.PI);
-  ctx.fill();
-}
-
 function reDrawCanvas() {
   requestAnimationFrame(reDrawCanvas);
   clearCanvas();
   dropPoints();
- // drawAvoidField();
+}
+
+function initHintListener() {
+  hint.onmouseover = () => {
+    hint.style.animationPlayState = 'running';
+    hint.style.pointerEvents = 'none';
+  }
+  hint.ontouchstart = () => {
+    hint.style.animationPlayState = 'running';
+    hint.style.pointerEvents = 'none';
+  }
 }
