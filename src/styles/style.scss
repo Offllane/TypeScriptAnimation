@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 $background-color: #2d2c2b;
 
 * {
@@ -11,6 +13,41 @@ body {
   height: 100vh;
   background-color: $background-color;
   overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
+}
+
+input[type="range"] {
+  -webkit-appearance: slider-vertical;
+  width: 100%;
+}
+
+.settings {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+ // width: 130px;
+  min-height: 150px;
+  padding: 20px 0;
+  background-color: #fff;
+  border-radius: 5px;
+  opacity: .5;
+  transition: .5s;
+  overflow: hidden;
+
+  &:hover {
+    opacity: 1;
+    width: unset;
+  }
+
+  .setting {
+    min-width: 130px;
+
+    .setting-name {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 .hint {

@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Point, AvoidableField } from "./models.js";
 import { config } from "./animationConfig.js";
-const Points = [];
+import { initRanges } from "./ranges.js";
+export const Points = [];
 const canvas = document.getElementById('canvas');
 export const ctx = canvas.getContext('2d');
 const hint = document.getElementById('hint');
@@ -20,6 +21,7 @@ const hint = document.getElementById('hint');
         yield initPoints();
         yield reDrawCanvas();
         yield initAvoidableField();
+        yield initRanges();
     });
 }());
 function initPoints() {

@@ -1,7 +1,8 @@
 import { Point, AvoidableField } from "./models.js";
 import { config } from "./animationConfig.js";
+import { initRanges } from "./ranges.js";
 
-const Points: Point[] = [];
+export const Points: Point[] = [];
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 export const ctx = canvas.getContext('2d')!;
 const hint = document.getElementById('hint') as HTMLElement;
@@ -12,6 +13,7 @@ const hint = document.getElementById('hint') as HTMLElement;
   await initPoints();
   await reDrawCanvas();
   await initAvoidableField();
+  await initRanges();
 }());
 
 function initPoints() {
