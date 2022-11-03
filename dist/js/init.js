@@ -34,7 +34,7 @@ function initAvoidableField() {
 }
 function setCanvasSize() {
     config.screenWidth = canvas.width = innerWidth;
-    config.screenHeight = canvas.height = innerHeight;
+    config.screenHeight = canvas.height = innerHeight + 180;
 }
 function initListeners() {
     initWindowEventListeners();
