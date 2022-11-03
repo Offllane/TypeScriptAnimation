@@ -68,7 +68,7 @@ export class Point {
     reInitDotProperties() {
         this.coordinate.x = Point.initCoordinateByScreenSize(config.screenWidth);
         this.coordinate.startX = this.coordinate.x;
-        this.coordinate.y = 0;
+        this.coordinate.y = -config.dotSize;
         this.color = Point.getColorByCoordinate(this.coordinate.x, config.screenWidth);
         this.pointElement.style.backgroundColor = this.color;
     }
